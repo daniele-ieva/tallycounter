@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16
+    restart: always
+    # set shared memory limit
+    shm_size: 1024mb
+    env_file:
+        - .env
+    volumes:
+      .db/init:/docker-entrypoint-initdb.d
+      .db/_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
