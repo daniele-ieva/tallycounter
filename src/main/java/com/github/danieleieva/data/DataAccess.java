@@ -27,9 +27,11 @@ public class DataAccess implements AutoCloseable {
     public void createCategory(String category) throws SQLException {
         var ps = statements.get("category_create");
         try {
+            log.info("Creating category {}", category);
             ps.setObject(1, UUID.randomUUID());
             ps.setString(2, category);
             ps.executeUpdate();
+            log.info("Category created: {}", category);
             updated = true;
         } catch (SQLException e) {
             log.error("Error creating category", e);
@@ -58,10 +60,27 @@ public class DataAccess implements AutoCloseable {
         return categories;
     }
 
+    public void deleteCategory(String categoryId) throws SQLException {
+        var ps = statements.get("category_delete");
+        try {
+            log.info("Deleting category {}", categoryId);
+            ps.setObject(1, UUID.fromString(categoryId));
+            ps.executeUpdate();
+            log.info("Deleted category {}", categoryId);
+            updated = true;
+        } catch (Exception e) {
+            log.error("Error deleting category {}", categoryId, e);
+            con.rollback();
+            throw e;
+        }
+    }
+
     @Override
     public void close() throws Exception {
         if (updated) {
+            log.info("Committing transaction");
             con.commit();
+            log.info("Committed transaction");
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.github.danieleieva.data.connection;
 
 import io.quarkus.runtime.Quarkus;
-import io.quarkus.runtime.QuarkusApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public abstract class PostgresStatements {
     private static final String category_create = "INSERT INTO categories (id, category) VALUES (?, ?);";
-    private static final String category_delete = "DELETE FROM categories WHERE category = ?;";
+    private static final String category_delete = "DELETE FROM categories WHERE id = ?;";
     private static final String category_rename = "UPDATE categories SET category = ? WHERE category = ?;";
     private static final String category_list = "SELECT * FROM categories;";
     private static final String category_getId = "SELECT id FROM categories WHERE category = ? LIMIT 1;";

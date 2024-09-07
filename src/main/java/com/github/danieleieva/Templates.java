@@ -10,6 +10,6 @@ import java.util.Optional;
 @CheckedTemplate
 public class Templates {
     public static native TemplateInstance index(ArrayList<Category> categories);
-    public static native TemplateInstance categories(ArrayList<Category> categories, Optional<String> error);
+    //public static native TemplateInstance categories(ArrayList<Category> categories, Optional<String> error);
 
 }

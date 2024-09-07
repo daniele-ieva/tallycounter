@@ -1,7 +1,6 @@
 package com.github.danieleieva;
 
 import com.github.danieleieva.data.connection.PostgresConnection;
-import com.github.danieleieva.data.records.Category;
 import io.quarkus.qute.TemplateInstance;
 import io.smallrye.common.constraint.NotNull;
 import io.vertx.core.impl.logging.Logger;
@@ -38,35 +37,40 @@ public class TallyCounter {
         return Templates.index(new ArrayList<>());
     }
 
-    @GET
-    @Path("categories")
-    @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance categoriesGet() {
-        try (var dao = connection.getDAO()){
-            return Templates.categories(dao.listCategories(), Optional.empty());
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return Templates.categories(new ArrayList<>(), Optional.of(e.getMessage()));
-        }
-    }
 
-    @POST
-    @Path("categories")
-    @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance categoriesPost(@NotNull @RestForm String category) {
-        String error = null;
-        ArrayList<Category> categories = null;
-        try (var dao = connection.getDAO()) {
-            dao.createCategory(category);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            error = e.getMessage();
-        }
-        try (var dao = connection.getDAO()){
-            return Templates.categories(dao.listCategories(), Optional.ofNullable(error));
-        } catch (Exception e) { 
-            log.error(e.getMessage(), e);
-            return Templates.categories(new ArrayList<>(), Optional.of(e.getMessage()));
-        }
-    }
+//    @POST
+//    @Path("categories/add")
+//    @Produces(MediaType.TEXT_HTML)
+//    public TemplateInstance categoriesPost(@NotNull @RestForm String category) {
+//        String error = null;
+//        try (var dao = connection.getDAO()) {
+//            dao.createCategory(category);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//            error = e.getMessage();
+//        }
+//        return categories(Optional.ofNullable(error));
+//    }
+//
+//    @POST @Path("categories/rm")
+//    @Produces(MediaType.TEXT_HTML)
+//    public TemplateInstance categoriesRemove(@NotNull @RestForm String categoryId) {
+//        String error = null;
+//        try (var dao = connection.getDAO()) {
+//            dao.deleteCategory(categoryId);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//            error = e.getMessage();
+//        }
+//        return categories(Optional.ofNullable(error));
+//    }
+//
+//    private TemplateInstance categories(@NotNull Optional<String> error) {
+//        try (var dao = connection.getDAO()){
+//            return Templates.categories(dao.listCategories(), error);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//            return Templates.categories(new ArrayList<>(), Optional.of(e.getMessage()));
+//        }
+//    }
 }
