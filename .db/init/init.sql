@@ -1,11 +1,12 @@
 CREATE TABLE "categories" (
-  "category" varchar PRIMARY KEY
+  "id" uuid PRIMARY KEY,
+  "category" varchar UNIQUE NOT NULL
 );
 
 CREATE TABLE "tallies" (
   "name" varchar PRIMARY KEY,
-  "category" varchar NOT NULL,
+  "category" uuid NOT NULL,
   "tally" integer NOT NULL
 );
 
-ALTER TABLE "tallies" ADD FOREIGN KEY ("category") REFERENCES "categories" ("category");
+ALTER TABLE "tallies" ADD FOREIGN KEY ("category") REFERENCES "categories" ("id");
