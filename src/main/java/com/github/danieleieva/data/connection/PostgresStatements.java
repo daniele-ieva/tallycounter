@@ -15,10 +15,14 @@ public abstract class PostgresStatements {
     private static final String category_create = "INSERT INTO categories (id, category) VALUES (?, ?);";
     private static final String category_delete = "DELETE FROM categories WHERE category = ?;";
     private static final String category_rename = "UPDATE categories SET category = ? WHERE category = ?;";
+    private static final String category_list = "SELECT * FROM categories;";
+    private static final String category_getId = "SELECT id FROM categories WHERE category = ? LIMIT 1;";
 
     private static final String tally_create = "INSERT INTO tally (name, category, tally) VALUES (?, ?, ?);";
     private static final String tally_delete = "DELETE FROM tally WHERE name = ?;";
     private static final String tally_rename = "UPDATE tally SET name = ? WHERE name = ?;";
+    private static final String tally_list = "SELECT * FROM tally;";
+    private static final String tally_filter = "SELECT * FROM tally WHERE category = ?;";
 
     private static final Logger log = LoggerFactory.getLogger(PostgresStatements.class);
 
@@ -26,12 +30,16 @@ public abstract class PostgresStatements {
         put("category_create", category_create);
         put("category_delete", category_delete);
         put("category_rename", category_rename);
+        put("category_list", category_list);
+        put("category_getId", category_getId);
 
         put("tally_create", tally_create);
         put("tally_delete", tally_delete);
         put("tally_rename", tally_rename);
+        put("tally_list", tally_list);
+        put("tally_filter", tally_filter);
     }};
-    
+
     public static Map<String, PreparedStatement> getStatements(Connection connection) {
         Map<String, PreparedStatement> statements = new HashMap<>();
         try {

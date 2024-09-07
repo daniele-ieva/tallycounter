@@ -1,0 +1,32 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tally Counter - Categories</title>
+    {#bundle /}
+</head>
+<body>
+{#if !error.isEmpty()}
+    <h1>{error.get()}</h1>
+{/if}
+<ul>
+    {#if categories}
+        {#for category in categories}
+            <li>{category.category}</li>
+        {/for}
+    {/if}
+</ul>
+
+<form method="POST">
+    <label>
+        category:
+        <input type="text" name="category" placeholder="category" />
+    </label>
+    <input type="submit" value="new" />
+</form>
+</body>
+
+</html>

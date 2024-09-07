@@ -1,4 +1,9 @@
 package com.github.danieleieva.data.records;
 
-public record Tally(String name, String category, Integer tally) {
+import java.util.UUID;
+
+public record Tally(String name, UUID category, Integer tally) {
+    public static Tally of(String name, UUID category, Integer tally) {
+        return new Tally(name, category, tally);
+    }
 }
