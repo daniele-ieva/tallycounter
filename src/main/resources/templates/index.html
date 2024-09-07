@@ -6,14 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tally Counter - Main Page</title>
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
     {#bundle /}
 </head>
 <body>
-    <ul>
-        {#for category in categories}
-        <li>{category.category}</li>
-        {/for}
-    </ul>
+    <header>
+        HEADER
+    </header>
+    <div id="content-box">
+        <main id="content">
+            {#include categories categories=categories error=null /}
+        </main>
+    </div>
 </body>
 
 </html>

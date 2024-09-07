@@ -25,6 +25,9 @@ public class DataAccess implements AutoCloseable {
     }
 
     public void createCategory(String category) throws SQLException {
+        if (category == null || category.isEmpty()) {
+            return;
+        }
         var ps = statements.get("category_create");
         try {
             log.info("Creating category {}", category);
@@ -60,7 +63,10 @@ public class DataAccess implements AutoCloseable {
         return categories;
     }
 
-    public void deleteCategory(String categoryId) throws SQLException {
+    public void deleteCategory(String categoryId) throws SQLException   {
+        if (categoryId == null || categoryId.isEmpty()) {
+            return;
+        }
         var ps = statements.get("category_delete");
         try {
             log.info("Deleting category {}", categoryId);
